@@ -77,96 +77,73 @@ class Validation():
                 # validate the data based on the rule assigned
 
                 if rule.startswith("after"):
-                    field_errors.extend(self.__validate_after_date_fields(
-                        data, field_name, field_rules, rule))
+                    field_errors.extend(self.__validate_after_date_fields(data, field_name, field_rules, rule))
 
                 elif rule == "alpha":
-                    field_errors.extend(
-                        self.__validate_alpha_fields(data, field_name))
+                    field_errors.extend(self.__validate_alpha_fields(data, field_name))
 
                 elif rule == "alpha_num":
-                    field_errors.extend(
-                        self.__validate_alpha_num_fields(data, field_name))
+                    field_errors.extend(self.__validate_alpha_num_fields(data, field_name))
 
                 elif rule.startswith("before"):
-                    field_errors.extend(self.__validate_before_date_fields(
-                        data, field_name, field_rules, rule))
+                    field_errors.extend(self.__validate_before_date_fields(data, field_name, field_rules, rule))
 
                 elif rule.startswith("between"):
-                    field_errors.extend(
-                        self.__validate_between_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_between_fields(data, field_name, rule))
 
                 elif rule == "boolean":
-                    field_errors.extend(
-                        self.__validate_boolean_fields(data, field_name))
+                    field_errors.extend(self.__validate_boolean_fields(data, field_name))
 
                 elif rule.startswith("confirmed"):
-                    field_errors.extend(
-                        self.__validate_confirmed_fields(data, field_name))
+                    field_errors.extend(self.__validate_confirmed_fields(data, field_name))
 
                 elif rule == "date":
-                    field_errors.extend(self.__validate_date_fields(
-                        data, field_name, field_rules))
+                    field_errors.extend(self.__validate_date_fields(data, field_name, field_rules))
 
                 elif rule == "digits":
-                    field_errors.extend(
-                        self.__validate_integer_fields(data, field_name))
+                    field_errors.extend(self.__validate_integer_fields(data, field_name))
 
                 elif rule.startswith("different"):
-                    field_errors.extend(
-                        self.__validate_different_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_different_fields(data, field_name, rule))
 
                 elif rule == "email":
-                    field_errors.extend(
-                        self.__validate_email_fields(data, field_name))
+                    field_errors.extend(self.__validate_email_fields(data, field_name))
 
                 elif rule.startswith("in"):
-                    field_errors.extend(
-                        self.__validate_in_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_in_fields(data, field_name, rule))
 
                 elif rule == "ip":
-                    field_errors.extend(
-                        self.__validate_ip_fields(data, field_name))
+                    field_errors.extend(self.__validate_ip_fields(data, field_name))
 
                 elif rule.startswith("max"):
-                    field_errors.extend(
-                        self.__validate_max_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_max_fields(data, field_name, rule))
 
                 elif rule.startswith("min"):
-                    field_errors.extend(
-                        self.__validate_min_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_min_fields(data, field_name, rule))
 
                 elif rule.startswith("not_in"):
-                    field_errors.extend(
-                        self.__validate_not_in_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_not_in_fields(data, field_name, rule))
 
                 elif rule == "present":
-                    field_errors.extend(
-                        self.__validate_present_fields(data, field_name))
+                    field_errors.extend(self.__validate_present_fields(data, field_name))
 
                 elif rule == "phone":
-                    field_errors.extend(
-                        self.__validate_phone_fields(data, field_name))
+                    field_errors.extend(self.__validate_phone_fields(data, field_name))
 
                 elif rule.startswith("regex"):
-                    field_errors.extend(
-                        self.__validate_regex_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_regex_fields(data, field_name, rule))
 
                 elif rule == "required":
-                    field_errors.extend(
-                        self.__validate_required_fields(data, field_name))
+                    field_errors.extend(self.__validate_required_fields(data, field_name))
 
                 elif rule.startswith("same"):
-                    field_errors.extend(
-                        self.__validate_same_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_same_fields(data, field_name, rule))
 
                 elif rule.startswith("size"):
-                    field_errors.extend(
-                        self.__validate_size_fields(data, field_name, rule))
+                    field_errors.extend(self.__validate_size_fields(data, field_name, rule))
 
                 elif rule == "website":
-                    field_errors.extend(
-                        self.__validate_website_fields(data, field_name))
+                    field_errors.extend(self.__validate_website_fields(data, field_name))
 
             self.errors.extend(field_errors)
 
@@ -382,10 +359,10 @@ class Validation():
         try:
             if data[field_name].isdigit():
                 if int(data[field_name]) > max_value:
-                    errs.append(self.return_field_message(field_name, "max"))
+                    errs.append(self.return_field_message_with_value(field_name, max_value, "max"))
             else:
                 if len(data[field_name]) > max_value:
-                    errs.append(self.return_field_message(field_name, "max"))
+                    errs.append(self.return_field_message_with_value(field_name, max_value, "max"))
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'maximum'))
 
@@ -401,10 +378,10 @@ class Validation():
         try:
             if data[field_name].isdigit():
                 if int(data[field_name]) < min_value:
-                    errs.append(self.return_field_message(field_name, "min"))
+                    errs.append(self.return_field_message_with_value(field_name, min_value, "min"))
             else:
                 if len(data[field_name]) < min_value:
-                    errs.append(self.return_field_message(field_name, "min"))
+                    errs.append(self.return_field_message_with_value(field_name, min_value, "min"))
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'minimum'))
 
@@ -551,13 +528,19 @@ class Validation():
         if field_name+".no_field" in self.custom_error_messages:
             return self.custom_error_messages[field_name+".no_field"]
         else:
-            return self.error_message_templates['no_field'] % (field_name, rule_name)
+            return self.error_message_templates['no_field'].format(field_name, rule_name)
 
     def return_field_message(self, field_name, rule_name):
         if field_name+"."+rule_name in self.custom_error_messages:
             return self.custom_error_messages[field_name+"."+rule_name]
         else:
-            return self.error_message_templates[rule_name] % (field_name)
+            return self.error_message_templates[rule_name].format(field_name)
+
+    def return_field_message_with_value(self, field_name, value, rule_name):
+        if field_name+"."+rule_name in self.custom_error_messages:
+            return self.custom_error_messages[field_name+"."+rule_name]
+        else:
+            return self.error_message_templates[rule_name].format(field_name)
 
     def is_valid(self, data, rules):
         """Validates the data according to the rules, returns True if the data is valid, and False if the data is invalid"""
