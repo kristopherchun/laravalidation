@@ -419,6 +419,10 @@ class Validation():
         try:
             if confirmation_field not in data.keys():
                 errs.append(self.return_field_message(field_name, "confirmed"))
+                
+            if data[field_name] != data[confirmation_field]:
+                errs.append(self.return_field_message(field_name, "confirmed"))
+                
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'confirmed'))
         return errs
