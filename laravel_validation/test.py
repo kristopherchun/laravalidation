@@ -1,4 +1,4 @@
-from validation import Validation
+from laravel_validation import validation
 
 data = {
     'month_day': '5522',
@@ -47,9 +47,9 @@ my_messages = {
     "age.no_field": "You did not provide any field named age in your data dictionary"
 }
 
-validation = Validation()
+validator = validation.Validation()
 
-errors = validation.validate(data, rules)
+errors = validator.validate(data, rules)
 
 for error in errors:
     print(error)
