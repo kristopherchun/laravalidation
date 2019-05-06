@@ -14,10 +14,50 @@ class Validation():
     def validate(self, data, rules, custom_messages=None):
         """Validate the 'data' according to the 'rules' given, returns a list of errors named 'errors'"""
 
-        self.error_message_templates = self.load_json_file("error_message_templates.json")
+        self.error_message_templates = json.loads('''{
+            "after": "'%s' is an invalid after date",
+            "alpha": "'%s' can have only alphabets",
+            "alpha_num": "'%s' can have only alphabets or numbers",
+            "before": "'%s' is an invalid before date ",
+            "between": "'%s' has an invalid value for between field",
+            "boolean": "'%s' has invalid value for boolean field",
+            "confirmed": "'%s' must have a pair field",
+            "date": "'%s' value does not match date format",
+            "digits": "'%s' must be an integer",
+            "different": "'%s' has invalid value for same rule ",
+            "email": "'%s' must be a valid email address",
+            "in": "'%s' has invalid value for in rule",
+            "ip": "'%s' must be a valid IP address",
+            "max": "The maximum value for the field '%s' is invalid",
+            "min": "The minimum value for the field '%s' is invalid",
+            "not_in": "'%s' has invalid value for not_in rule",
+            "present": "The data dictionary must have a nullable field name '%s'",
+            "phone": "'%s' must be a valid Phone Number",
+            "regex": "'%s' field does not match the RE ",
+            "required": "'%s' must be filled",
+            "same": "'%s' has invalid value for same rule",
+            "size": "'%s' has invalid value for size rule",
+            "website": "'%s' must be a valid Website URL",
+            "no_field": "No field named '%s' to validate for %s rule"
+        }''')
 
         if not custom_messages:
-            self.custom_error_messages = self.load_json_file("./custom_error_messages.json")
+            self.custom_error_messages = json.loads('''{
+                "_comment": "You did not provide any field named <feld_name> in your data dictionary",
+                "field_name.rule":"You did not provide any field named field_name in your data dictionary",
+                "month_day.regex":"You did not provide any field named month_day in your data dictionary",
+                "phone.max":"You did not provide any field named phone in your data dictionary",
+                "month_day.required":"You did not provide any field named month_day in your data dictionary",
+                "new_password_confirmation.same":"You did not provide any field named new_password_confirmation in your data dictionary",
+                "phone.no_field":"You did not provide any field named phone in your data dictionary",
+                "birthday.date_format":"You did not provide any field named birthday in your data dictionary",
+                "new_password.alpha":"field new_password can only have alphabet values",
+                "host.no_field":"You did not provide any field named host in your data dictionary",
+                "email.no_field":"You did not provide any field named email in your data dictionary",
+                "nationality.no_field":"You did not provide any field named nationality in your data dictionary",
+                "active.no_field":"You did not provide any field named active in your data dictionary",
+                "age.no_field":"You did not provide any field named age in your data dictionary"
+            }''')
         else:
             self.custom_error_messages = custom_messages
 
@@ -501,12 +541,6 @@ class Validation():
             result = "error"
 
         return errs, result
-
-    def load_json_file(self, file_name):
-        f = open(os.path.join(sys.path[0], file_name))
-        t = f.read()
-        f.close()
-        return json.loads(t)
 
     def return_no_field_message(self, field_name, rule_name):
         if self.custom_error_messages.has_key(field_name+".no_field"):
