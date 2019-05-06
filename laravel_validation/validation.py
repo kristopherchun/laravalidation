@@ -17,8 +17,8 @@ class Validation():
         self.error_message_templates = json.loads('''{
             "required": "The %s field is required.",            
             "confirmed": "The %s confirmation does not match.",
-            "max": "The %s may not be greater than %d characters.",
-            "min": "The %s must be at least %d characters.",
+            "max": "The %s may not be greater than %s characters.",
+            "min": "The %s must be at least %s characters.",
             
             "after": "'%s' is an invalid after date",
             "alpha": "'%s' can have only alphabets",
