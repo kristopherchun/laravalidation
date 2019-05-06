@@ -7,7 +7,8 @@ import os
 
 class Validation():
     # List to store the error messages in
-    errors = []
+    response = {}
+    errors = {}
 
     error_message_templates = {}
 
@@ -19,6 +20,7 @@ class Validation():
             "confirmed": "The %s confirmation does not match.",
             "max": "The %s may not be greater than %s characters.",
             "min": "The %s must be at least %s characters.",
+            "email": "'%s' must be a valid email address",
             
             "after": "'%s' is an invalid after date",
             "alpha": "'%s' can have only alphabets",
@@ -29,7 +31,6 @@ class Validation():
             "date": "'%s' value does not match date format",
             "digits": "'%s' must be an integer",
             "different": "'%s' has invalid value for same rule ",
-            "email": "'%s' must be a valid email address",
             "in": "'%s' has invalid value for in rule",
             "ip": "'%s' must be a valid IP address",
             "not_in": "'%s' has invalid value for not_in rule",
@@ -61,15 +62,15 @@ class Validation():
             }''')
         else:
             self.custom_error_messages = custom_messages
-
+        
+        # field_errors will keep the errors for a particular field, which will be appended to the main "errors" list
+        field_errors = {}
+        
         # iterate through the rules dictionary, fetching each rule name (dictionary key) one by one
         for field_name in rules:
 
             # fetch the rule (value of dictionary element) from "rules" dictionary for the current rule name (dictionary key) and split it to get a list
             field_rules = rules[field_name].split('|')
-
-            # field_errors will keep the errors for a particular field, which will be appended to the main "errors" list
-            field_errors = []
 
             # now looping through rules of one field one rule at a time with each iteration
             for rule in field_rules:
@@ -77,77 +78,84 @@ class Validation():
                 # validate the data based on the rule assigned
 
                 if rule.startswith("after"):
-                    field_errors.extend(self.__validate_after_date_fields(data, field_name, field_rules, rule))
+                    field_errors.field_name = self.__validate_after_date_fields(data, field_name, field_rules, rule)
 
                 elif rule == "alpha":
-                    field_errors.extend(self.__validate_alpha_fields(data, field_name))
+                    field_errors.field_name = self.__validate_alpha_fields(data, field_name)
 
                 elif rule == "alpha_num":
-                    field_errors.extend(self.__validate_alpha_num_fields(data, field_name))
+                    field_errors.field_name = self.__validate_alpha_num_fields(data, field_name)
 
                 elif rule.startswith("before"):
-                    field_errors.extend(self.__validate_before_date_fields(data, field_name, field_rules, rule))
+                    field_errors.field_name = self.__validate_before_date_fields(data, field_name, field_rules, rule)
 
                 elif rule.startswith("between"):
-                    field_errors.extend(self.__validate_between_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_between_fields(data, field_name, rule)
 
                 elif rule == "boolean":
-                    field_errors.extend(self.__validate_boolean_fields(data, field_name))
+                    field_errors.field_name = self.__validate_boolean_fields(data, field_name)
 
                 elif rule.startswith("confirmed"):
-                    field_errors.extend(self.__validate_confirmed_fields(data, field_name))
+                    field_errors.field_name = self.__validate_confirmed_fields(data, field_name)
 
                 elif rule == "date":
-                    field_errors.extend(self.__validate_date_fields(data, field_name, field_rules))
+                    field_errors.field_name = self.__validate_date_fields(data, field_name, field_rules)
 
                 elif rule == "digits":
-                    field_errors.extend(self.__validate_integer_fields(data, field_name))
+                    field_errors.field_name = self.__validate_integer_fields(data, field_name)
 
                 elif rule.startswith("different"):
-                    field_errors.extend(self.__validate_different_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_different_fields(data, field_name, rule)
 
                 elif rule == "email":
-                    field_errors.extend(self.__validate_email_fields(data, field_name))
+                    field_errors.field_name = self.__validate_email_fields(data, field_name)
 
                 elif rule.startswith("in"):
-                    field_errors.extend(self.__validate_in_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_in_fields(data, field_name, rule)
 
                 elif rule == "ip":
-                    field_errors.extend(self.__validate_ip_fields(data, field_name))
+                    field_errors.field_name = self.__validate_ip_fields(data, field_name)
 
                 elif rule.startswith("max"):
-                    field_errors.extend(self.__validate_max_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_max_fields(data, field_name, rule)
 
                 elif rule.startswith("min"):
-                    field_errors.extend(self.__validate_min_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_min_fields(data, field_name, rule)
 
                 elif rule.startswith("not_in"):
-                    field_errors.extend(self.__validate_not_in_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_not_in_fields(data, field_name, rule)
 
                 elif rule == "present":
-                    field_errors.extend(self.__validate_present_fields(data, field_name))
+                    field_errors.field_name = self.__validate_present_fields(data, field_name)
 
                 elif rule == "phone":
-                    field_errors.extend(self.__validate_phone_fields(data, field_name))
+                    field_errors.field_name = self.__validate_phone_fields(data, field_name)
 
                 elif rule.startswith("regex"):
-                    field_errors.extend(self.__validate_regex_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_regex_fields(data, field_name, rule)
 
                 elif rule == "required":
-                    field_errors.extend(self.__validate_required_fields(data, field_name))
+                    field_errors.field_name = self.__validate_required_fields(data, field_name)
 
                 elif rule.startswith("same"):
-                    field_errors.extend(self.__validate_same_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_same_fields(data, field_name, rule)
 
                 elif rule.startswith("size"):
-                    field_errors.extend(self.__validate_size_fields(data, field_name, rule))
+                    field_errors.field_name = self.__validate_size_fields(data, field_name, rule)
 
                 elif rule == "website":
-                    field_errors.extend(self.__validate_website_fields(data, field_name))
-
-            self.errors.extend(field_errors)
-
-        return self.errors
+                    field_errors.field_name = self.__validate_website_fields(data, field_name)
+        
+        if not field_errors:
+            return {
+                "status": "error",
+                "exception": "Illuminate\\Validation\\ValidationException",
+                "code": 422,
+                "message": "The given data was invalid.",
+                "errors": field_errors
+            }
+        
+        return {}
 
     def __validate_required_fields(self, data, field_name):
         """Used for validating required fields, returns a list of error messages"""
