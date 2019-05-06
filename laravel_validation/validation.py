@@ -15,31 +15,31 @@ class Validation():
         """Validate the 'data' according to the 'rules' given, returns a list of errors named 'errors'"""
 
         self.error_message_templates = json.loads('''{
-            "required": "The {0} field is required.",            
-            "confirmed": "The {0} confirmation does not match.",
-            "max": "The {0} may not be greater than {1} characters.",
-            "min": "The {0} must be at least {1} characters.",
+            "required": "The %s field is required.",            
+            "confirmed": "The %s confirmation does not match.",
+            "max": "The %s may not be greater than %d characters.",
+            "min": "The %s must be at least %d characters.",
             
-            "after": "'{0}' is an invalid after date",
-            "alpha": "'{0}' can have only alphabets",
-            "alpha_num": "'{0}' can have only alphabets or numbers",
-            "before": "'{0}' is an invalid before date ",
-            "between": "'{0}' has an invalid value for between field",
-            "boolean": "'{0}' has invalid value for boolean field",
-            "date": "'{0}' value does not match date format",
-            "digits": "'{0}' must be an integer",
-            "different": "'{0}' has invalid value for same rule ",
-            "email": "'{0}' must be a valid email address",
-            "in": "'{0}' has invalid value for in rule",
-            "ip": "'{0}' must be a valid IP address",
-            "not_in": "'{0}' has invalid value for not_in rule",
-            "present": "The data dictionary must have a nullable field name '{0}'",
-            "phone": "'{0}' must be a valid Phone Number",
-            "regex": "'{0}' field does not match the RE ",
-            "same": "'{0}' has invalid value for same rule",
-            "size": "'{0}' has invalid value for size rule",
-            "website": "'{0}' must be a valid Website URL",
-            "no_field": "No field named '{0}' to validate for {1} rule"
+            "after": "'%s' is an invalid after date",
+            "alpha": "'%s' can have only alphabets",
+            "alpha_num": "'%s' can have only alphabets or numbers",
+            "before": "'%s' is an invalid before date ",
+            "between": "'%s' has an invalid value for between field",
+            "boolean": "'%s' has invalid value for boolean field",
+            "date": "'%s' value does not match date format",
+            "digits": "'%s' must be an integer",
+            "different": "'%s' has invalid value for same rule ",
+            "email": "'%s' must be a valid email address",
+            "in": "'%s' has invalid value for in rule",
+            "ip": "'%s' must be a valid IP address",
+            "not_in": "'%s' has invalid value for not_in rule",
+            "present": "The data dictionary must have a nullable field name '%s'",
+            "phone": "'%s' must be a valid Phone Number",
+            "regex": "'%s' field does not match the RE ",
+            "same": "'%s' has invalid value for same rule",
+            "size": "'%s' has invalid value for size rule",
+            "website": "'%s' must be a valid Website URL",
+            "no_field": "No field named '%s' to validate for %s rule"
         }''')
 
         if not custom_messages:
@@ -378,10 +378,10 @@ class Validation():
         try:
             if data[field_name].isdigit():
                 if int(data[field_name]) < min_value:
-                    errs.append(self.return_field_message_with_value(field_name, min_value, "min"))
+                    errs.append(self.return_field_message(field_name, "min"))
             else:
                 if len(data[field_name]) < min_value:
-                    errs.append(self.return_field_message_with_value(field_name, min_value, "min"))
+                    errs.append(self.return_field_message(field_name, "min"))
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'minimum'))
 
@@ -528,19 +528,19 @@ class Validation():
         if field_name+".no_field" in self.custom_error_messages:
             return self.custom_error_messages[field_name+".no_field"]
         else:
-            return self.error_message_templates['no_field'].format(field_name, rule_name)
+            return self.error_message_templates['no_field'] % (field_name, rule_name)
 
     def return_field_message(self, field_name, rule_name):
         if field_name+"."+rule_name in self.custom_error_messages:
             return self.custom_error_messages[field_name+"."+rule_name]
         else:
-            return self.error_message_templates[rule_name].format(field_name)
+            return self.error_message_templates[rule_name] % (field_name)
 
     def return_field_message_with_value(self, field_name, value, rule_name):
         if field_name+"."+rule_name in self.custom_error_messages:
             return self.custom_error_messages[field_name+"."+rule_name]
         else:
-            return self.error_message_templates[rule_name].format(field_name)
+            return self.error_message_templates[rule_name] % (field_name, value)
 
     def is_valid(self, data, rules):
         """Validates the data according to the rules, returns True if the data is valid, and False if the data is invalid"""
