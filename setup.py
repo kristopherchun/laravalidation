@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
-  name = 'laravel-validation',
-  packages = ['laravel-validation'], 
+  name = 'laravelValidation',
+  packages = ['laravelValidation'], 
   version = '0.1',
   description = 'Laravel like data validation library for python language',
   author = 'Walid Mashal',
