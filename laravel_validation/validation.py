@@ -2,6 +2,7 @@ import re
 import datetime
 import sys
 import json
+import os
 
 
 class Validation():
@@ -13,12 +14,10 @@ class Validation():
     def validate(self, data, rules, custom_messages=None):
         """Validate the 'data' according to the 'rules' given, returns a list of errors named 'errors'"""
 
-        self.error_message_templates = self.load_json_file(
-            "error_message_templates.json")
+        self.error_message_templates = self.load_json_file("error_message_templates.json")
 
         if not custom_messages:
-            self.custom_error_messages = self.load_json_file(
-                "custom_error_messages.json")
+            self.custom_error_messages = self.load_json_file("./custom_error_messages.json")
         else:
             self.custom_error_messages = custom_messages
 
@@ -504,7 +503,7 @@ class Validation():
         return errs, result
 
     def load_json_file(self, file_name):
-        f = open(file_name)
+        f = open(os.path.join(sys.path[0], file_name))
         t = f.read()
         f.close()
         return json.loads(t)
