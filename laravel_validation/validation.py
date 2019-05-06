@@ -288,7 +288,7 @@ class Validation():
 
         errs = []
         try:
-            if not data.has_key(field_name):
+            if field_name in data:
                 errs.append(self.return_field_message(field_name, "present"))
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'present'))
@@ -543,13 +543,13 @@ class Validation():
         return errs, result
 
     def return_no_field_message(self, field_name, rule_name):
-        if self.custom_error_messages.has_key(field_name+".no_field"):
+        if field_name+".no_field" in self.custom_error_messages:
             return self.custom_error_messages[field_name+".no_field"]
         else:
             return self.error_message_templates['no_field'] % (field_name, rule_name)
 
     def return_field_message(self, field_name, rule_name):
-        if self.custom_error_messages.has_key(field_name+"."+rule_name):
+        if field_name+"."+rule_name in self.custom_error_messages:
             return self.custom_error_messages[field_name+"."+rule_name]
         else:
             return self.error_message_templates[rule_name] % (field_name)
