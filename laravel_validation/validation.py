@@ -155,7 +155,7 @@ class Validation():
         if field_errors:
             return {
                 "status": "error",
-                "exception": "Illuminate\\Validation\\ValidationException",
+                "exception": "Validation\\ValidationException",
                 "code": 422,
                 "message": "The given data was invalid.",
                 "errors": field_errors
