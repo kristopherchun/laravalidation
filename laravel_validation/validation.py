@@ -378,10 +378,10 @@ class Validation():
         try:
             if data[field_name].isdigit():
                 if int(data[field_name]) < min_value:
-                    errs.append(self.return_field_message(field_name, "min"))
+                    errs.append(self.return_field_message_with_value(field_name, "min"))
             else:
                 if len(data[field_name]) < min_value:
-                    errs.append(self.return_field_message(field_name, "min"))
+                    errs.append(self.return_field_message_with_value(field_name, "min"))
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'minimum'))
 
