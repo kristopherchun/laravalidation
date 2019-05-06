@@ -78,75 +78,81 @@ class Validation():
                 # validate the data based on the rule assigned
 
                 if rule.startswith("after"):
-                    field_errors.field_name = self.__validate_after_date_fields(data, field_name, field_rules, rule)
+                    field_error = self.__validate_after_date_fields(data, field_name, field_rules, rule)
 
                 elif rule == "alpha":
-                    field_errors.field_name = self.__validate_alpha_fields(data, field_name)
+                    field_error = self.__validate_alpha_fields(data, field_name)
 
                 elif rule == "alpha_num":
-                    field_errors.field_name = self.__validate_alpha_num_fields(data, field_name)
+                    field_error = self.__validate_alpha_num_fields(data, field_name)
 
                 elif rule.startswith("before"):
-                    field_errors.field_name = self.__validate_before_date_fields(data, field_name, field_rules, rule)
+                    field_error = self.__validate_before_date_fields(data, field_name, field_rules, rule)
 
                 elif rule.startswith("between"):
-                    field_errors.field_name = self.__validate_between_fields(data, field_name, rule)
+                    field_error = self.__validate_between_fields(data, field_name, rule)
 
                 elif rule == "boolean":
-                    field_errors.field_name = self.__validate_boolean_fields(data, field_name)
+                    field_error = self.__validate_boolean_fields(data, field_name)
 
                 elif rule.startswith("confirmed"):
-                    field_errors.field_name = self.__validate_confirmed_fields(data, field_name)
+                    field_error = self.__validate_confirmed_fields(data, field_name)
 
                 elif rule == "date":
-                    field_errors.field_name = self.__validate_date_fields(data, field_name, field_rules)
+                    field_error = self.__validate_date_fields(data, field_name, field_rules)
 
                 elif rule == "digits":
-                    field_errors.field_name = self.__validate_integer_fields(data, field_name)
+                    field_error = self.__validate_integer_fields(data, field_name)
 
                 elif rule.startswith("different"):
-                    field_errors.field_name = self.__validate_different_fields(data, field_name, rule)
+                    field_error = self.__validate_different_fields(data, field_name, rule)
 
                 elif rule == "email":
-                    field_errors.field_name = self.__validate_email_fields(data, field_name)
+                    field_error = self.__validate_email_fields(data, field_name)
 
                 elif rule.startswith("in"):
-                    field_errors.field_name = self.__validate_in_fields(data, field_name, rule)
+                    field_error = self.__validate_in_fields(data, field_name, rule)
 
                 elif rule == "ip":
-                    field_errors.field_name = self.__validate_ip_fields(data, field_name)
+                    field_error = self.__validate_ip_fields(data, field_name)
 
                 elif rule.startswith("max"):
-                    field_errors.field_name = self.__validate_max_fields(data, field_name, rule)
+                    field_error = self.__validate_max_fields(data, field_name, rule)
 
                 elif rule.startswith("min"):
-                    field_errors.field_name = self.__validate_min_fields(data, field_name, rule)
+                    field_error = self.__validate_min_fields(data, field_name, rule)
 
                 elif rule.startswith("not_in"):
-                    field_errors.field_name = self.__validate_not_in_fields(data, field_name, rule)
+                    field_error = self.__validate_not_in_fields(data, field_name, rule)
 
                 elif rule == "present":
-                    field_errors.field_name = self.__validate_present_fields(data, field_name)
+                    field_error = self.__validate_present_fields(data, field_name)
 
                 elif rule == "phone":
-                    field_errors.field_name = self.__validate_phone_fields(data, field_name)
+                    field_error = self.__validate_phone_fields(data, field_name)
 
                 elif rule.startswith("regex"):
-                    field_errors.field_name = self.__validate_regex_fields(data, field_name, rule)
+                    field_error = self.__validate_regex_fields(data, field_name, rule)
 
                 elif rule == "required":
-                    field_errors.field_name = self.__validate_required_fields(data, field_name)
+                    field_error = self.__validate_required_fields(data, field_name)
 
                 elif rule.startswith("same"):
-                    field_errors.field_name = self.__validate_same_fields(data, field_name, rule)
+                    field_error = self.__validate_same_fields(data, field_name, rule)
 
                 elif rule.startswith("size"):
-                    field_errors.field_name = self.__validate_size_fields(data, field_name, rule)
+                    field_error = self.__validate_size_fields(data, field_name, rule)
 
                 elif rule == "website":
-                    field_errors.field_name = self.__validate_website_fields(data, field_name)
-        
-        if not field_errors:
+                    field_error = self.__validate_website_fields(data, field_name)
+                        
+                if field_error:
+                    if field_name not in field_errors:
+                        field_errors[field_name] = []
+                    
+                    field_errors[field_name].extend(field_error)
+                
+        if field_errors:
             return {
                 "status": "error",
                 "exception": "Illuminate\\Validation\\ValidationException",
