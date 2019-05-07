@@ -157,10 +157,7 @@ class Validation():
                     field_errors[field_name].extend(field_error)
                 
         if field_errors:
-            return {
-                "message": "The given data was invalid.",
-                "errors": field_errors
-            }
+            return field_errors
         
         return {}
 
