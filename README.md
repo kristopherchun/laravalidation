@@ -1,5 +1,4 @@
 ### LaraValidation
-github.com/kristopherchun/laravalidation
 [![Release](https://img.shields.io/github/release/kristopherchun/laravalidation.svg)](https://github.com/kristopherchun/laravalidation/releases/latest)
 [![Travis CI Build Status](https://travis-ci.org/kristopherchun/laravalidation.svg?branch=master)](https://travis-ci.org/kristopherchun/laravalidation)
 [![Coverage Report](https://codecov.io/gh/kristopherchun/laravalidation/branch/master/graph/badge.svg)](https://codecov.io/gh/kristopherchun/laravalidation)
