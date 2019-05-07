@@ -9,7 +9,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
   name = 'laravalidation',
   packages=['laravalidation'],
-  version = '0.4',
+  version = '0.4.1',
   description = 'Laravel like data validation library for python language',
   author = 'Walid Mashal',
   author_email = 'walidmashal4@gmail.com',
