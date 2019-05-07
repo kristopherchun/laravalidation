@@ -1,6 +1,12 @@
-### Validation
+### LaraValidation
+github.com/kristopherchun/laravalidation
+[![Release](https://img.shields.io/github/release/kristopherchun/laravalidation.svg)](https://github.com/kristopherchun/laravalidation/releases/latest)
+[![Travis CI Build Status](https://travis-ci.org/kristopherchun/laravalidation.svg?branch=master)](https://travis-ci.org/kristopherchun/laravalidation)
+[![Coverage Report](https://codecov.io/gh/kristopherchun/laravalidation/branch/master/graph/badge.svg)](https://codecov.io/gh/kristopherchun/laravalidation)
 
-**Validation** is a python module containing logic for implementing Laravel style Data Validation using python language. This code can be used with html forms to validate their input fields and can also be used with any kind of other data as long as the data is in the form of a python dictionary.
+Original forked repo: https://github.com/walid-mashal/Laravel-Validation
+
+**LaraValidation** is a python module containing logic for implementing Laravel style Data Validation using python language. This code can be used with html forms to validate their input fields and can also be used with any kind of other data as long as the data is in the form of a python dictionary.
 
 For Example we can have some data in the form of a python dictionary as the following:
 
@@ -167,3 +173,4 @@ The field under validation must have a size matching the given **value**. For st
 #### website
 
 The field under validation must have a valid website url as value. for example: https://www.example.com or www.example.com
+
