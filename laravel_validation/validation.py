@@ -20,7 +20,7 @@ class Validation():
             "confirmed": "The %s confirmation does not match.",
             "max": "The %s may not be greater than %s characters.",
             "min": "The %s must be at least %s characters.",
-            "email": "The %s must be a valid email address",
+            "email": "The %s must be a valid email address.",
             
             "after": "'%s' is an invalid after date",
             "alpha": "'%s' can have only alphabets",
