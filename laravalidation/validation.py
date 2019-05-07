@@ -16,7 +16,8 @@ class Validation():
         """Validate the 'data' according to the 'rules' given, returns a list of errors named 'errors'"""
 
         self.error_message_templates = json.loads('''{
-            "required": "The %s field is required.",            
+            "required": "The %s field is required.",     
+            "required_if": "The %s field is required with.",            
             "confirmed": "The %s confirmation does not match.",
             "max": "The %s may not be greater than %s characters.",
             "min": "The %s must be at least %s characters.",
@@ -136,6 +137,9 @@ class Validation():
 
                 elif rule == "required":
                     field_error = self.__validate_required_fields(data, field_name)
+                        
+                elif rule == "required_if":
+                    field_error = self.__validate_required_if_fields(data, field_name)
 
                 elif rule.startswith("same"):
                     field_error = self.__validate_same_fields(data, field_name, rule)
@@ -154,9 +158,6 @@ class Validation():
                 
         if field_errors:
             return {
-                "status": "error",
-                "exception": "Validation\\ValidationException",
-                "code": 422,
                 "message": "The given data was invalid.",
                 "errors": field_errors
             }
@@ -172,6 +173,18 @@ class Validation():
                 errs.append(self.return_field_message(field_name, "required"))
         except KeyError:
             errs.append(self.return_no_field_message(field_name, 'required'))
+
+        return errs
+
+    def __validate_required_if_fields(self, data, field_name):
+        """Used for validating required fields, returns a list of error messages"""
+
+        errs = []
+        try:
+            if data[field_name] == '':
+                errs.append(self.return_field_message(field_name, "required_if"))
+        except KeyError:
+            errs.append(self.return_no_field_message(field_name, 'required_if'))
 
         return errs
 
