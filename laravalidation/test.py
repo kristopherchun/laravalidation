@@ -1,4 +1,4 @@
-from laravel_validation import validation
+from laravalidation import validation
 
 data = {
     'month_day': '5522',

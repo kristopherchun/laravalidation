@@ -1,12 +1,12 @@
 from distutils.core import setup
 setup(
-  name = 'laravel_validation',
-  packages=['laravel_validation'],
+  name = 'laravalidation',
+  packages=['laravalidation'],
   version = '0.1',
   description = 'Laravel like data validation library for python language',
   author = 'Walid Mashal',
   author_email = 'walidmashal4@gmail.com',
-  url='https://github.com/kristopherchun/laravel_validation.git',
+  url='https://github.com/kristopherchun/laravalidation.git',
   download_url = '',
   keywords = ['validation', 'python', 'laravel'],
   classifiers = [],
