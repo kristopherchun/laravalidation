@@ -21,15 +21,15 @@ class Validation():
             "max": "The %s may not be greater than %s characters.",
             "min": "The %s must be at least %s characters.",
             "email": "The %s must be a valid email address.",
+            "integer": "The %s must be an integer.",
+            "alpha": "The %s may only contain letters.",
+            "alpha_num": "The %s may only contain letters and numbers.",
             
             "after": "'%s' is an invalid after date",
-            "alpha": "'%s' can have only alphabets",
-            "alpha_num": "'%s' can have only alphabets or numbers",
             "before": "'%s' is an invalid before date ",
             "between": "'%s' has an invalid value for between field",
             "boolean": "'%s' has invalid value for boolean field",
             "date": "'%s' value does not match date format",
-            "digits": "'%s' must be an integer",
             "different": "'%s' has invalid value for same rule ",
             "in": "'%s' has invalid value for in rule",
             "ip": "'%s' must be a valid IP address",
@@ -101,7 +101,7 @@ class Validation():
                 elif rule == "date":
                     field_error = self.__validate_date_fields(data, field_name, field_rules)
 
-                elif rule == "digits":
+                elif rule == "integer":
                     field_error = self.__validate_integer_fields(data, field_name)
 
                 elif rule.startswith("different"):
